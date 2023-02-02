@@ -1,0 +1,27 @@
+FROM node:16-alpine
+
+WORKDIR '/app'
+
+COPY package.json .
+RUN npm install
+
+COPY . .
+
+CMD [ "npm", "run", "start" ]
+
+#commands
+#1. docker run -p 3000:3000 -v $(pwd):/app 428384b91a0e   -->error
+
+#2. docker run -p 3000:3000 -v /app/node_modules -v $(pwd):/app 428384b91a0e 
+#   put a bookmark on the node_modules folder
+#   just saying don't map it from the volume just use it forom the container.
+
+
+# overaride the CMD 
+# docker run 1399f38dba0e npm run test
+# docker run -it 1399f38dba0e npm run test
+
+# for getting stdin or out to any containers running with the docker-compose, we cant to that:
+# docker exec -it d55aedd32cd4 sh
+# docker attach d55aedd32cd4
+# because, docker attach gets the pid of 1, stdin and out
